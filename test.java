@@ -1,3 +1,4 @@
+
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,8 +35,8 @@ class test implements ActionListener {
 
         jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        JTextArea edit = new JTextArea("HI I AM A TEXTAREA");
+        final JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        final JTextArea edit = new JTextArea("HI I AM A TEXTAREA");
         edit.setEditable(true);
         JScrollPane sta = new JScrollPane(edit);
 
@@ -84,11 +85,6 @@ class test implements ActionListener {
         jmhelp.add(jmt);
         jmb.add(jmhelp);
         
-        JMenu jml = new JMenu("listen");
-        JMenuItem jmil = new JMenuItem("start");
-        jml.add(jmil);
-        jmb.add(jml);
-        
         jmiopen.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 try {
@@ -112,62 +108,58 @@ class test implements ActionListener {
             }
         });
         jmiclose.addActionListener(this);
-        /*jmisave.addActionListener(new ActionListener()
-        		{
-        	     public void actionPerformed(ActionEvent ae) {
-        	    	 try{
-        	    	 int rtvalue = jfc.showSaveDialog(null);
-        	    	
-        	    	 //File select = jfc.getSelectedFile();
-        	    	 BufferedReader b = new BufferedReader(new FileReader(jfc.getSelectedFile()));
-        	     }
-        	    	 catch(IOException e2)
-        	    	 {
-        	    		 e2.printStackTrace();
-        	    	 }
-        	     }
-        		});*/
+        jmisave.addActionListener(this);
         jmiexit.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent ae) {
                 System.exit(0);
             }
         });
-        jmil.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent ae){
-        		try {
-    		
-    			ss = new ServerSocket(5000);
-    			System.out.println("Server is running");
-    			s = ss.accept();
-    			isr = new InputStreamReader(s.getInputStream());
-    			br = new BufferedReader(isr);
-    			message = br.readLine();
-    			edit.append(message);
-    			System.out.println(message);
-    			
-    			isr.close();
-    			br.close();
-    			ss.close();
-    			s.close();
-    			
-    			
-    				
-    			
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		
-        	}
-        });
-        
 
         jfrm.add(sta);
         jfrm.setJMenuBar(jmb);
         jfrm.setVisible(true);
+
+        Runnable r = new Runnable() {
+        	int i=0;
+            public void run() {
+            	try {
+        			while(true){
         
-        
+        			ss = new ServerSocket(5000);
+        			System.out.println("Server is running");
+        			s = ss.accept();
+        			isr = new InputStreamReader(s.getInputStream());
+        			br = new BufferedReader(isr);
+        			message = br.readLine();
+        			if(message.equals(null))
+        			{
+        				message="\n";
+        			}
+        			if(i<7)
+        			{
+        				i++;
+        			}
+        			else{
+        				edit.append(message);
+        				i=0;
+        			}
+        			System.out.println(message);
+        			
+        			isr.close();
+        			br.close();
+        			ss.close();
+        			s.close();
+        			
+        			}
+        				
+        			
+        		} catch (IOException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+            }
+        };
+        new Thread(r).start();
     }
 
     public static void main(String args[]) {
