@@ -1,9 +1,11 @@
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 
 import javax.swing.JFileChooser;
@@ -17,6 +19,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.filechooser.FileSystemView;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
@@ -108,7 +111,34 @@ class test implements ActionListener {
             }
         });
         jmiclose.addActionListener(this);
-        jmisave.addActionListener(this);
+        jmisave.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent ae){
+        		int retval = jfc.showSaveDialog(null);
+        		
+        		
+        		if(retval == JFileChooser.APPROVE_OPTION)
+        		{
+        			File f1 = jfc.getSelectedFile();
+        			if(f1 == null)
+        			{
+        			 return;
+        			}
+        			if(!f1.getName().toLowerCase().endsWith(".txt"))
+        			{
+        				f1 = new File(f1.getParentFile(),f1.getName() + ".txt");
+        			}
+        			try
+        			{
+        				edit.write(new OutputStreamWriter(new FileOutputStream(f1),"utf-8"));
+        				Desktop.getDesktop().open(f1);
+        			}
+        			catch(Exception e)
+        			{
+        				e.printStackTrace();
+        			}
+        		}
+        	}
+        });
         jmiexit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 System.exit(0);
@@ -177,3 +207,4 @@ class test implements ActionListener {
 		
 	}
 }
+
