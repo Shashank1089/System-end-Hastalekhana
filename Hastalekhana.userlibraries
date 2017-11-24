@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="Python 2.7.12 (/usr/bin/python2.7) interpreter library">
+    <archive path="/usr/lib/python2.7" />
+    <archive path="/usr/lib/python2.7/plat-x86_64-linux-gnu" />
+    <archive path="/usr/lib/python2.7/lib-tk" />
+    <archive path="/usr/lib/python2.7/lib-dynload" />
+    <archive path="/home/robin/.local/lib/python2.7/site-packages" />
+    <archive path="/usr/local/lib/python2.7/dist-packages" />
+    <archive path="/usr/local/lib/python2.7/dist-packages/setuptools-28.8.0-py2.7.egg" />
+    <archive path="/usr/lib/python2.7/dist-packages" />
+    <archive path="/usr/lib/python2.7/dist-packages/gtk-2.0" />
+    <archive path="/usr/lib/python2.7/dist-packages/wx-3.0-gtk2" />
+    <archive path="/home/robin/.IdeaIC2017.2/system/python_stubs/-1247972723" />
+    <archive path="/home/robin/.IdeaIC2017.2/config/plugins/python-ce/helpers/python-skeletons" />
+    <archive path="/home/robin/.IdeaIC2017.2/config/plugins/python-ce/helpers/typeshed/stdlib/2" />
+    <archive path="/home/robin/.IdeaIC2017.2/config/plugins/python-ce/helpers/typeshed/stdlib/2and3" />
+    <archive path="/home/robin/.IdeaIC2017.2/config/plugins/python-ce/helpers/typeshed/third_party/2" />
+    <archive path="/home/robin/.IdeaIC2017.2/config/plugins/python-ce/helpers/typeshed/third_party/2and3" />
+  </library>
+</eclipse-userlibraries>
+
