@@ -1,6 +1,4 @@
 import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
@@ -9,27 +7,22 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CopyCut {
-    public CopyCut(String name) {
+class CopyCut {
+    CopyCut(String name) {
         File file = new File(name);
-        List listOfFiles = new ArrayList();
+        List<Object> listOfFiles = new ArrayList<>();
         listOfFiles.add(file);
 
         FileTransferable ft = new FileTransferable(listOfFiles);
 
-        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ft, new ClipboardOwner() {
-            @Override
-            public void lostOwnership(Clipboard clipboard, Transferable contents) {
-                System.out.println("Lost ownership");
-            }
-        });
+        Toolkit.getDefaultToolkit().getSystemClipboard().setContents(ft, (clipboard, contents) -> System.out.println("Lost ownership"));
     }
 
     class FileTransferable implements Transferable {
 
         private List listOfFiles;
 
-        public FileTransferable(List listOfFiles) {
+        FileTransferable(List listOfFiles) {
             this.listOfFiles = listOfFiles;
         }
 
